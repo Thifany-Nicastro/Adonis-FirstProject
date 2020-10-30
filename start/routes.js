@@ -18,4 +18,6 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 
-Route.resource('products', 'ProductController')
+Route.resource('products', 'ProductController').validator(new Map([
+    [['products.store'], ['Product']]
+]))

@@ -48,21 +48,26 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const data = request.all()
     //const data = request.only(['name'])
 
-    const rules = {
-      name: 'required'
-    }
+    // const rules = {
+    //   name: 'required'
+    // }
 
-    const validation = await validate(request.all(), rules)
+    // const validation = await validate(data, rules)
     
-    if (validation.fails()) {
-      session
-        .withErrors(validation.messages())
-        .flashAll()
+    // if (validation.fails()) {
+    //   session
+    //     .withErrors(validation.messages())
+    //     .flashAll()
 
-      return response.redirect('back')
-    }
+    //   return response.redirect('back')
+    // }
+
+    await Product.create(data)
+
+    return response.redirect('products')
   }
 
   /**
