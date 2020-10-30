@@ -1,5 +1,8 @@
 'use strict'
 
+const Product = use('App/Models/Product')
+const { validate } = use('Validator')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -18,7 +21,9 @@ class ProductController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return view.render('products.index')
+    const products = await Product.all()
+
+    return view.render('products.index', { products: products.toJSON() })
   }
 
   /**
@@ -43,6 +48,21 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    //const data = request.only(['name'])
+
+    const rules = {
+      name: 'required'
+    }
+
+    const validation = await validate(request.all(), rules)
+    
+    if (validation.fails()) {
+      session
+        .withErrors(validation.messages())
+        .flashAll()
+
+      return response.redirect('back')
+    }
   }
 
   /**

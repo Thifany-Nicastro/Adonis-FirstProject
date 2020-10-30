@@ -3,4 +3,9 @@
 @section('content')
     @set('title', 'Products list')
     
+    <ul>
+        @each(product in products)
+          <li> {{ product.name }} </li>
+        @endeach
+    </ul>
 @endsection
