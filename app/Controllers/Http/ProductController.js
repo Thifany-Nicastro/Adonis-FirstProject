@@ -48,26 +48,11 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    //const data = request.all()
     const data = request.only(['name'])
-
-    // const rules = {
-    //   name: 'required'
-    // }
-
-    // const validation = await validate(data, rules)
-    
-    // if (validation.fails()) {
-    //   session
-    //     .withErrors(validation.messages())
-    //     .flashAll()
-
-    //   return response.redirect('back')
-    // }
 
     await Product.create(data)
 
-    return response.redirect('products')
+    return response.redirect('/products')
   }
 
   /**
@@ -125,6 +110,11 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const product = await Product.findOrFail(params.id)
+
+    await product.delete()
+
+    return response.redirect('/products')
   }
 }
 
