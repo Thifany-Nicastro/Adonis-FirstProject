@@ -1,7 +1,7 @@
 'use strict'
 
 const Product = use('App/Models/Product')
-const { validate } = use('Validator')
+// const { validate } = use('Validator')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -48,8 +48,8 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    const data = request.all()
-    //const data = request.only(['name'])
+    //const data = request.all()
+    const data = request.only(['name'])
 
     // const rules = {
     //   name: 'required'
@@ -92,6 +92,9 @@ class ProductController {
    * @param {View} ctx.view
    */
   async edit ({ params, request, response, view }) {
+    const product = await Product.findOrFail(params.id);
+
+    return view.render('products.edit', { product: product.toJSON() })
   }
 
   /**
@@ -103,6 +106,14 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const product = await Product.findOrFail(params.id)
+
+    const data = request.only(['name'])
+    
+    product.merge(data)
+    await product.save()
+
+    return response.redirect('/products')
   }
 
   /**

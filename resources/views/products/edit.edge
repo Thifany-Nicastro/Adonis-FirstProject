@@ -1,22 +1,22 @@
 @layout('layout.app')
 
 @section('content')
-    @set('title', 'Create a product')
+    @set('title', 'Edit product')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">New Product</div>
+                    <div class="card-header">Edit Product</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('ProductController.store') }}">
+                        <form method="POST" action="{{ route('ProductController.update', { id: product.id }) }}?_method=PUT">
                             {{ csrfField() }}
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="name" id="name">
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ product.name }}">
                                     {{ elIf('<span>$self</span>', getErrorFor('name'), hasErrorFor('name')) }}
                                 </div>
                             </div>

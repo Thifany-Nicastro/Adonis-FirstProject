@@ -2,10 +2,37 @@
 
 @section('content')
     @set('title', 'Products list')
-    
-    <ul>
-        @each(product in products)
-          <li> {{ product.name }} </li>
-        @endeach
-    </ul>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Products</div>
+
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @each(product in products)
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>
+                                        <a type="button" href="{{ route('products.edit', { id: product.id }) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                        <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                @endeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
