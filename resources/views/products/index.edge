@@ -2,6 +2,7 @@
 
 @section('content')
     @set('title', 'Products list')
+    
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -11,34 +12,31 @@
                     <div class="card-body">
                         <a type="button" href="{{ route('products.create') }}" class="btn btn-success float-right mb-3">New product <i class="fas fa-plus"></i></a>
 
-                        
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @each(product in products)
+                                <tr>
+                                    <form method="POST" action="{{ route('ProductController.destroy', { id: product.id }) }}?_method=DELETE">
+                                        {{ csrfField() }}
 
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @each(product in products)
-                                    <tr>
-                                        <form method="POST" action="{{ route('ProductController.destroy', { id: product.id }) }}?_method=DELETE">
-                                            {{ csrfField() }}
-
-                                            <td>{{ product.id }}</td>
-                                            <td>{{ product.name }}</td>
-                                            <td>
-                                                <a type="button" href="{{ route('products.edit', { id: product.id }) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </td>
-                                        </form>
-                                    </tr>
-                                    @endeach
-                                </tbody>
-                            </table>
-                        
+                                        <td>{{ product.id }}</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>
+                                            <a type="button" href="{{ route('products.edit', { id: product.id }) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </form>
+                                </tr>
+                                @endeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

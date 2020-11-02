@@ -24,6 +24,7 @@ class ProductController {
     const products = await Product.all()
 
     return view.render('products.index', { products: products.toJSON() })
+    //return products.toJSON()
   }
 
   /**
@@ -77,7 +78,7 @@ class ProductController {
    * @param {View} ctx.view
    */
   async edit ({ params, request, response, view }) {
-    const product = await Product.findOrFail(params.id);
+    const product = await Product.findOrFail(params.id)
 
     return view.render('products.edit', { product: product.toJSON() })
   }
