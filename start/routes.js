@@ -34,3 +34,7 @@ Route.group(() => {
 Route.get('logout', 'AuthController.logout')
 
 Route.get('show', 'AuthController.show')
+
+// Route.group(() => {
+//     Route.resource('products', 'ProductController').apiOnly()
+// }).prefix('api');

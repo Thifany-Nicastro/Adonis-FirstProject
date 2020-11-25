@@ -24,7 +24,7 @@ class ProductController {
     const products = await Product.all()
 
     return view.render('products.index', { products: products.toJSON() })
-    //return products.toJSON()
+    // return products.toJSON()
   }
 
   /**
@@ -100,6 +100,7 @@ class ProductController {
     await product.save()
 
     return response.redirect('/products')
+    // return product.toJSON()
   }
 
   /**
